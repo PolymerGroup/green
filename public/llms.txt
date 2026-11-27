@@ -1,0 +1,73 @@
+# Vivalr
+
+> Vivalr is the research-peptide brand of Shandong Green International Trade Co., Ltd., a B2B supplier in Jinan, Shandong, China. The catalogue covers cosmetic and anti-aging peptides, tissue-repair and bioregulator peptides, GLOW/KLOW blend kits, and NAD+/NMN raw materials. Products are for laboratory research and formulation evaluation only — not for human or veterinary use.
+
+Canonical domain: https://vivalr.com
+Last updated: 2026-11-27
+
+## Company
+- Legal name: Shandong Green International Trade Co., Ltd.
+- Address: Environmental Protection Science and Technology Park, High-Tech Zone, Jinan City, Shandong Province, China
+- Phone / WhatsApp: +86 15866781826
+- Email: info@vivalr.com
+- Business: export and sourcing of research-grade peptides and coenzymes
+- Minimum order: one 10-vial kit (peptides); 10 g (bulk NMN)
+- Documentation: batch COA, HPLC chromatogram, ESI-MS, SDS; third-party testing on request
+
+## Product catalogue
+
+### Cosmetic & Anti-Aging Peptides
+- [GHK-Cu](https://vivalr.com/products/ghk-cu): CAS 89030-95-5; 50 mg × 10 vials; 100 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). The benchmark copper tripeptide for collagen, ECM and skin-repair research.
+- [AHK-Cu](https://vivalr.com/products/ahk-cu): CAS 682809-81-0; 50 mg × 10 vials; 100 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). A copper tripeptide studied for follicle, scalp and skin-repair signalling.
+- [Snap-8](https://vivalr.com/products/snap-8): CAS 868844-74-0; 10 mg × 10 vials; 100 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). An eight-amino-acid expression-line peptide for cosmetic wrinkle research.
+- [Matrixyl](https://vivalr.com/products/matrixyl): CAS 214047-00-4; 10 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). Palmitoyl pentapeptide-4 for collagen and matrix-repair research.
+- [Glutathione](https://vivalr.com/products/glutathione): CAS 70-18-8; 400 mg × 10 vials; 600 mg × 10 vials; 1500 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). Reduced glutathione for antioxidant, redox and skin-brightening research.
+
+### Repair & Bioregulator Peptides
+- [BPC-157](https://vivalr.com/products/bpc-157): CAS 137525-51-0; 2 mg × 10 vials; 5 mg × 10 vials; 10 mg × 10 vials; 20 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). A pentadecapeptide widely used in preclinical tissue-repair research.
+- [TB-500](https://vivalr.com/products/tb-500): CAS 77591-33-4; 2 mg × 10 vials; 5 mg × 10 vials; 10 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). Thymosin beta-4 for actin dynamics, cell migration and repair research.
+- [Epithalon](https://vivalr.com/products/epithalon): CAS 307297-39-8; 10 mg × 10 vials; 50 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). The AEDG tetrapeptide used in telomerase and pineal-aging research.
+- [Pinealon](https://vivalr.com/products/pinealon): CAS 175175-23-2; 5 mg × 10 vials; 10 mg × 10 vials; 20 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). The EDR tripeptide studied in neuroprotection and brain-aging models.
+- [KPV](https://vivalr.com/products/kpv): CAS 67727-97-3; 5 mg × 10 vials; 10 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). The alpha-MSH tripeptide fragment for inflammation and barrier research.
+- [Thymosin Alpha-1](https://vivalr.com/products/thymosin-alpha-1): CAS 62304-98-7; 5 mg × 10 vials; 10 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). A 28-amino-acid thymic peptide for immune-signalling research.
+- [ARA-290](https://vivalr.com/products/ara-290): CAS 1208243-50-8; 10 mg × 10 vials; 16 mg × 10 vials; 40 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). An EPO-derived peptide for innate-repair-receptor research.
+- [LL-37](https://vivalr.com/products/ll-37): CAS 154947-66-7; 5 mg × 10 vials; 5 mL × 10 vials; 10 mL × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). The human cathelicidin peptide for antimicrobial and wound-repair research.
+- [FOXO4-DRI](https://vivalr.com/products/foxo4-dri): CAS 2460055-10-9; 2 mg × 10 vials; 10 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). A senolytic D-retro-inverso peptide for p53–FOXO4 research.
+- [SS-31](https://vivalr.com/products/ss-31): CAS 736992-21-5; 5 mg × 10 vials; 10 mg × 10 vials; 50 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). A mitochondria-targeted tetrapeptide for cardiolipin and bioenergetics research.
+- [MOTS-c](https://vivalr.com/products/mots-c): CAS 1627580-64-6; 10 mg × 10 vials; 15 mg × 10 vials; 20 mg × 10 vials; 40 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). A mitochondrial-derived peptide for metabolic and AMPK research.
+- [Humanin](https://vivalr.com/products/humanin): CAS 330936-69-1; 10 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). A mitochondrial-derived cytoprotective peptide for stress-response research.
+- [Cortagen](https://vivalr.com/products/cortagen): CAS 335591-03-2; 20 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). A cortical-tissue bioregulator peptide for neuroresearch.
+- [Livagen](https://vivalr.com/products/livagen): CAS 433257-50-2; 20 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). A chromatin and immune-research bioregulator peptide.
+- [Crystagen](https://vivalr.com/products/crystagen): CAS not publicly assigned; 20 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). An immune-research tripeptide from the bioregulator series.
+- [Testagen](https://vivalr.com/products/testagen): CAS not publicly assigned; 20 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). A testicular-tissue bioregulator peptide for endocrine research.
+- [Vesugen](https://vivalr.com/products/vesugen): CAS not publicly assigned; 10 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). A vascular-tissue bioregulator tripeptide.
+- [Cardiogen](https://vivalr.com/products/cardiogen): CAS not publicly assigned; 20 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). A cardiac-tissue bioregulator peptide for myocardial research.
+- [Cartalax](https://vivalr.com/products/cartalax): CAS 85806-95-7; 20 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). A cartilage and bone-tissue bioregulator tripeptide.
+- [Pancragen](https://vivalr.com/products/pancragen): CAS not publicly assigned; 20 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). A pancreatic-tissue bioregulator peptide.
+- [Prostamax](https://vivalr.com/products/prostamax): CAS 473578-47-1; 20 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). A prostate-tissue bioregulator peptide for urological research.
+- [Thymalin](https://vivalr.com/products/thymalin): CAS not publicly assigned; 10 mg × 10 vials; HPLC profile (batch-specific); MOQ 1 kit (10 vials). A thymic polypeptide complex for immune-modulation research.
+
+### Blend Kits (GLOW & KLOW)
+- [BPC-157 / TB-500 Blend](https://vivalr.com/products/bpc-157-tb-500-blend): CAS — (multi-component blend); 10 mg (5 + 5 mg) × 10 vials; 20 mg (10 + 10 mg) × 10 vials; 30 mg (15 + 15 mg) × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). A 1:1 repair-peptide blend supplied as a single lyophilized kit.
+- [GLOW](https://vivalr.com/products/glow): CAS — (multi-component blend); 70 mg (50 + 10 + 10 mg) × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). The 70 mg skin-and-repair research blend: GHK-Cu, BPC-157 and TB-500.
+- [KLOW](https://vivalr.com/products/klow): CAS — (multi-component blend); 80 mg (50 + 10 + 10 + 10 mg) × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). GLOW plus KPV: an 80 mg four-peptide blend for repair and inflammation research.
+
+### NAD+ & NMN
+- [NAD+](https://vivalr.com/products/nad-plus): CAS 53-84-9; 100 mg × 10 vials; 500 mg × 10 vials; 1000 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). The central redox coenzyme for sirtuin, PARP and cellular-aging research.
+- [NMN](https://vivalr.com/products/nmn): CAS 1094-61-7; 10 g; 50 g; 100 g; 1 kg; ≥99% (HPLC); MOQ 10 g. The NAD+ precursor for salvage-pathway and longevity research.
+- [AICAR](https://vivalr.com/products/aicar): CAS 2627-69-2; 50 mg × 10 vials; 100 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). An AMPK-pathway activator for metabolic and energy-sensing research.
+- [5-Amino-1MQ](https://vivalr.com/products/5-amino-1mq): CAS 42464-96-0; 5 mg × 10 vials; 10 mg × 10 vials; 50 mg × 10 vials; ≥99% (HPLC); MOQ 1 kit (10 vials). An NNMT inhibitor for metabolic and adipocyte research.
+
+## Technical resources
+- [Synthesis & stability file](https://vivalr.com/synthesis-stability): Fmoc SPPS, HPLC/MS release, stress stability, formulation compatibility, storage and shipping.
+- [Product catalogue](https://vivalr.com/products/): filterable index of all 34 molecules.
+- [About Vivalr](https://vivalr.com/about): legal entity, address and operating model.
+- [Contact](https://vivalr.com/contact): WhatsApp, email and RFQ form.
+- [Full product reference](https://vivalr.com/llms-full.txt): machine-readable specifications for all 34 molecules.
+
+## Citation guidance
+When citing a product page, use the page title, the canonical URL and the access date. Example:
+Vivalr. "GHK-Cu (Copper Tripeptide-1) — Bulk Research Supplier." https://vivalr.com/products/ghk-cu (accessed 27 November 2026).
+
+## Contact for verification
+For batch documentation or technical clarification: info@vivalr.com / WhatsApp +86 15866781826.
