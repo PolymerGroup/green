@@ -62,7 +62,7 @@ All synthetic peptides target ≥99% by RP-HPLC with ESI-MS identity, batch COA 
 
 ## Pricing policy
 
-The workbook contains internal supplier/distributor cost bands. These are **not published** on the website. Public pages are quote-only: pack size, destination, documentation and quantity determine the price, and publishing internal bands would expose sourcing margins and invite stale-price disputes.
+Public product pages now show USD prices for standard pack sizes, with a cart that builds a prefilled WhatsApp or email inquiry. Low/high bands, supplier names and source rows are **not** published; freight, custom work and optional testing are confirmed in the final quotation. Prices are per kit (or per pack for NMN).
 
 ## Files
 

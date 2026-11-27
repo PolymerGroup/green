@@ -348,9 +348,9 @@ def main():
     make_generic(
         "about.png",
         "ABOUT VIVALR",
-        "A Jinan-based supplier built for research buyers.",
-        "Shandong Green International Trade Co., Ltd. — research peptides and coenzymes.",
-        ["JINAN, CHINA", "WORLDWIDE", "RESEARCH USE ONLY"],
+        "A Shandong-based supplier built for research buyers.",
+        "Shandong Green International Trade Co., Ltd. — contract manufacturing and export.",
+        ["SHANDONG, CHINA", "WORLDWIDE", "RESEARCH USE ONLY"],
         vial=("GHK-Cu", "50 mg · 10 vials", (47, 111, 158)),
     )
     make_generic(

@@ -6,7 +6,7 @@ Static B2B catalogue for **https://vivalr.com**, built for GitHub + Cloudflare P
 - Pure HTML5 + one CSS file + one vanilla JS file (no framework, no build step at deploy time)
 - Product, FAQ, Breadcrumb, Organization and WebSite JSON-LD
 - `sitemap.xml`, `robots.txt` (AI crawlers allowed), `llms.txt` and `llms-full.txt`
-- Quote flow: WhatsApp, `mailto:info@vivalr.com`, copy-to-clipboard — no backend
+- Inquiry cart with saved selections, USD pricing and prefilled WhatsApp / email inquiry — no backend
 
 > **Research use only.** All products are for laboratory research and formulation evaluation. Not for human or veterinary use.
 
@@ -114,7 +114,7 @@ Add more legacy paths there if the old site has indexed blog or product URLs.
 1. **Google Search Console** — add a Domain property for `vivalr.com`, verify by DNS TXT, submit `https://vivalr.com/sitemap.xml`.
 2. **Bing Webmaster Tools** — add the site (or import from GSC), submit the sitemap, enable IndexNow.
 3. **Yandex Webmaster** — optional, submit the sitemap if you sell into that market.
-4. **Rich Results Test** — check the home page and 3 product pages for Product + FAQ validity. The Product offer is quote-based (no public price), so merchant-listing rich results are not expected; the markup remains valid.
+4. **Rich Results Test** — check the home page and 3 product pages for Product + FAQ validity. Product pages now expose an `AggregateOffer` with USD low/high prices, so price-related rich results can be validated.
 5. **Schema Markup Validator** — confirm `Organization`, `WebSite`, `Product`, `FAQPage`, `BreadcrumbList`, `TechArticle`.
 6. **PageSpeed Insights** — mobile and desktop; the site ships no web fonts, no analytics and no frameworks.
 7. **AI crawlers** — `robots.txt` explicitly allows `GPTBot`, `OAI-SearchBot`, `ChatGPT-User`, `ClaudeBot`, `Claude-Web`, `anthropic-ai`, `PerplexityBot`, `Google-Extended`, `Applebot-Extended`, `CCBot` and `cohere-ai`. `llms.txt` gives a curated index; `llms-full.txt` gives the full product reference.
@@ -123,6 +123,6 @@ Add more legacy paths there if the old site has indexed blog or product URLs.
 
 ## Product data & pricing
 
-`src/data.py` is the single source of truth. Prices from the source workbook are intentionally not published: the site is quote-based, and internal cost bands should never appear in the public HTML.
+`src/data.py` is the single source of truth. Public USD prices are listed for standard pack sizes and are rendered on product pages, product cards, the buy bar and the inquiry cart. The source workbook, its low/high bands and supplier names are **not** included in the repository. The final quotation confirms pack size, freight and any optional testing.
 
-See `PRODUCT-SELECTION.md` for the filtering rules, duplicate aggregation (GLOW/KLOW/BPC-TB blends/glutathione), the Pancragen 116-vial typo, and the NMN addition (NMN is not in the source workbook and is quote-based from 10 g).
+See `PRODUCT-SELECTION.md` for the filtering rules, duplicate aggregation (GLOW/KLOW/BPC-TB blends/glutathione), the Pancragen 116-vial typo, and the NMN addition (NMN is not in the source workbook; its listed prices are indicative).

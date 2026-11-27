@@ -1843,3 +1843,91 @@ for p in PRODUCTS:
 
 assert len(PRODUCTS) == 34
 assert all(p["variants"] for p in PRODUCTS)
+
+# ---------------------------------------------------------------------------
+# Public USD prices for standard pack sizes (per kit, or per pack for NMN).
+# The source workbook and supplier names are intentionally not included in
+# this repository.
+# ---------------------------------------------------------------------------
+PUBLIC_PRICES = {
+    "VVR-5MQ-10": 34.83,
+    "VVR-5MQ-5": 29.68,
+    "VVR-5MQ-50": 179.85,
+    "VVR-AHK-100": 122.33,
+    "VVR-AHK-50": 88.63,
+    "VVR-AIC-100": 107.95,
+    "VVR-AIC-50": 62.68,
+    "VVR-ARA-10": 98.55,
+    "VVR-ARA-16": 133.18,
+    "VVR-ARA-40": 350.00,
+    "VVR-BPC-10": 62.68,
+    "VVR-BPC-2": 33.85,
+    "VVR-BPC-20": 200.00,
+    "VVR-BPC-5": 44.40,
+    "VVR-BTB-10": 124.73,
+    "VVR-BTB-20": 234.15,
+    "VVR-BTB-30": 366.65,
+    "VVR-CAR-20": 127.10,
+    "VVR-CAT-20": 132.30,
+    "VVR-COR-20": 132.30,
+    "VVR-CRY-20": 88.35,
+    "VVR-EPI-10": 56.58,
+    "VVR-EPI-50": 183.68,
+    "VVR-FOX-10": 557.10,
+    "VVR-FOX-2": 132.30,
+    "VVR-GHK-100": 37.55,
+    "VVR-GHK-50": 33.08,
+    "VVR-GLW-70": 253.30,
+    "VVR-GSH-1500": 45.28,
+    "VVR-GSH-400": 26.98,
+    "VVR-GSH-600": 19.85,
+    "VVR-HUM-10": 360.38,
+    "VVR-KLW-80": 365.60,
+    "VVR-KPV-10": 62.68,
+    "VVR-KPV-5": 47.00,
+    "VVR-LIV-20": 132.30,
+    "VVR-LL37-10ML": 500.00,
+    "VVR-LL37-5": 131.35,
+    "VVR-LL37-5ML": 315.00,
+    "VVR-MOT-10": 93.15,
+    "VVR-MOT-15": 147.98,
+    "VVR-MOT-20": 169.75,
+    "VVR-MOT-40": 328.18,
+    "VVR-MTX-10": 52.23,
+    "VVR-NAD-100": 35.70,
+    "VVR-NAD-1000": 75.20,
+    "VVR-NAD-500": 56.05,
+    "VVR-NMN-100G": 500.00,
+    "VVR-NMN-10G": 75.00,
+    "VVR-NMN-1KG": 3750.00,
+    "VVR-NMN-50G": 300.00,
+    "VVR-PAN-20": 167.13,
+    "VVR-PIN-10": 80.08,
+    "VVR-PIN-20": 327.00,
+    "VVR-PIN-5": 48.75,
+    "VVR-PRO-20": 226.33,
+    "VVR-SNP-10": 47.00,
+    "VVR-SNP-100": 267.75,
+    "VVR-SS31-10": 107.08,
+    "VVR-SS31-5": 59.55,
+    "VVR-SS31-50": 412.60,
+    "VVR-TA1-10": 214.13,
+    "VVR-TA1-5": 127.95,
+    "VVR-TB5-10": 198.48,
+    "VVR-TB5-2": 57.03,
+    "VVR-TB5-5": 106.20,
+    "VVR-TES-20": 90.53,
+    "VVR-THY-10": 110.13,
+    "VVR-VES-10": 81.48,
+}
+
+for p in PRODUCTS:
+    p["unit"] = "pack" if p["slug"] == "nmn" else "kit"
+    p["unit_plural"] = "packs" if p["unit"] == "pack" else "kits"
+    for v in p["variants"]:
+        v["price"] = PUBLIC_PRICES[v["sku"]]
+    p["price_min"] = min(v["price"] for v in p["variants"])
+    p["price_max"] = max(v["price"] for v in p["variants"])
+    p["price_from"] = p["price_min"]
+
+assert len(PUBLIC_PRICES) == sum(len(p["variants"]) for p in PRODUCTS)

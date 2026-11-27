@@ -7,7 +7,7 @@ from data import (
     SITE, BRAND, COMPANY, ADDRESS, ADDRESS_SHORT, PHONE, PHONE_TEL, WHATSAPP,
     EMAIL, UPDATED, UPDATED_HUMAN, CATEGORIES, PRODUCTS, BY_SLUG,
 )
-from ui import e, icon, breadcrumb, cta_band, faq_block
+from ui import e, money, icon, breadcrumb, cta_band, faq_block
 from build import (
     write, page, clamp_desc, org_node, breadcrumb_schema, faq_schema, OUT,
 )
@@ -17,8 +17,8 @@ def build_about():
     body = f'''<section class="page-hero">
   <div class="wrap">
     {breadcrumb([("Home", "/"), ("About", None)])}
-    <h1>A Jinan-based supplier built for research buyers.</h1>
-    <p>Vivalr is the research-peptide brand of {COMPANY}. We supply cosmetic actives, repair and bioregulator peptides, fixed-ratio blends and NAD+/NMN raw materials to laboratories, formulators and ingredient buyers worldwide.</p>
+    <h1>A Shandong-based supplier built for research buyers.</h1>
+    <p>Vivalr is the research-peptide brand of {COMPANY}. Based in Shandong, China, we supply cosmetic actives, repair and bioregulator peptides, fixed-ratio blends, and NAD+/NMN raw materials to laboratories, formulators, and ingredient buyers worldwide.</p>
   </div>
 </section>
 
@@ -28,12 +28,12 @@ def build_about():
     <div class="split-copy">
       <div class="section-head">
         <div class="eyebrow">Who we are</div>
-        <h2 class="section-title">A trading company that behaves like a technical partner.</h2>
+        <h2 class="section-title">More than an export trader — a contract manufacturing partner.</h2>
       </div>
       <div class="prose">
-        <p>We are an export-focused supplier, not a contract manufacturer. That distinction matters: our job is to translate your specification into a qualified synthesis and fill-finish batch, verify the documentation, and get it to your laboratory without surprises.</p>
-        <p>Our team works from Jinan, Shandong — one of China's established chemical and biotechnology export clusters. We maintain relationships with synthesis, purification and lyophilization partners, and we release every lot against a written specification before it is offered to a buyer.</p>
-        <p>We do not publish list prices. Bulk pricing depends on pack size, counter-ion, documentation and destination, and a quote-only model lets us give accurate numbers rather than a catalogue price that later changes.</p>
+        <p>We are not just an export-focused trading company. We are also a contract manufacturer. That distinction matters: we translate your specification into a qualified synthesis and fill-finish batch, verify the documentation, and get it to your laboratory without surprises.</p>
+        <p>Our contract manufacturing team is based in Shandong, one of China's established chemical and biotechnology export clusters. We manage synthesis, purification, and lyophilization through a qualified production network, and we release every lot against a written specification before it is offered to a buyer.</p>
+        <p>Our listed prices cover standard pack sizes in USD. Final pricing depends on pack size, counter-ion, documentation, and destination, and we confirm every detail in a written quotation before production.</p>
       </div>
       <div class="product-actions"><a class="btn btn-dark" href="/contact#rfq">Talk to our team {icon("arrow", "arrow")}</a></div>
     </div>
@@ -112,18 +112,18 @@ def build_about():
             "@type": "AboutPage",
             "@id": SITE + "/about#webpage",
             "url": SITE + "/about",
-            "name": "About Vivalr — Research Peptide Supplier in Jinan",
-            "description": clamp_desc("Vivalr is the research-peptide brand of Shandong Green International Trade Co., Ltd., based in Jinan High-Tech Zone, Shandong, China."),
+            "name": "About Vivalr — Research Peptide Supplier in Shandong",
+            "description": clamp_desc("Vivalr is the research-peptide brand of Shandong Green International Trade Co., Ltd., based in Shandong, China. Contract manufacturing and global export."),
             "isPartOf": {"@id": SITE + "/#website"},
             "mainEntity": org_node(),
             "inLanguage": "en",
         },
         breadcrumb_schema([("Home", "/"), ("About", "/about")]),
     ]
-    title = "About Vivalr — Research Peptide Supplier in Jinan"
-    desc = "Vivalr is the research-peptide brand of Shandong Green International Trade Co., Ltd., based in Jinan High-Tech Zone, Shandong, China."
+    title = "About Vivalr — Research Peptide Supplier in Shandong"
+    desc = "Vivalr is the research-peptide brand of Shandong Green International Trade Co., Ltd., based in Shandong, China. Contract manufacturing and global export."
     write("about.html", page(title, desc, "/about", body, schema, active="about",
-                             og_image="/assets/img/og/about.png", keywords="Vivalr, Shandong Green International Trade, Jinan peptide supplier, research peptides"))
+                             og_image="/assets/img/og/about.png", keywords="Vivalr, Shandong Green International Trade, Shandong peptide supplier, research peptides"))
 
 
 def molecule_visual():
@@ -134,9 +134,9 @@ def molecule_visual():
 def build_contact():
     body = f'''<section class="page-hero">
   <div class="wrap">
-    {breadcrumb([("Home", "/"), ("Contact", None)])}
+    <div class="eyebrow">Contact us</div>
     <h1>Talk to a person who knows the chemistry.</h1>
-    <p>Send the molecule, pack size and destination. We reply with pricing, COA and lead time — usually within 12 business hours. WhatsApp is fastest for urgent technical questions.</p>
+    <p>Send the products, pack size and destination. We reply with pricing, COA and lead time — usually within 12 business hours. WhatsApp is fastest for urgent technical questions.</p>
   </div>
 </section>
 
@@ -231,7 +231,6 @@ def build_contact():
             "mainEntity": org_node(),
             "inLanguage": "en",
         },
-        breadcrumb_schema([("Home", "/"), ("Contact", "/contact")]),
     ]
     title = "Contact Vivalr — WhatsApp & Email Quote"
     desc = "Contact Vivalr for bulk research peptide quotes. WhatsApp +86 15866781826, email info@vivalr.com, or send the RFQ form."
@@ -478,7 +477,7 @@ def build_llms():
     lines = [
         "# Vivalr",
         "",
-        "> Vivalr is the research-peptide brand of Shandong Green International Trade Co., Ltd., a B2B supplier in Jinan, Shandong, China. The catalogue covers cosmetic and anti-aging peptides, tissue-repair and bioregulator peptides, GLOW/KLOW blend kits, and NAD+/NMN raw materials. Products are for laboratory research and formulation evaluation only — not for human or veterinary use.",
+        "> Vivalr is the research-peptide brand of Shandong Green International Trade Co., Ltd., a B2B supplier and contract manufacturer based in Shandong, China. The catalogue covers cosmetic and anti-aging peptides, tissue-repair and bioregulator peptides, GLOW/KLOW blend kits, and NAD+/NMN raw materials. Products are for laboratory research and formulation evaluation only — not for human or veterinary use.",
         "",
         "Canonical domain: https://vivalr.com",
         f"Last updated: {UPDATED}",
@@ -488,7 +487,7 @@ def build_llms():
         f"- Address: {ADDRESS}",
         f"- Phone / WhatsApp: {PHONE}",
         f"- Email: {EMAIL}",
-        "- Business: export and sourcing of research-grade peptides and coenzymes",
+        "- Business: contract manufacturing and export of research-grade peptides and coenzymes",
         "- Minimum order: one 10-vial kit (peptides); 10 g (bulk NMN)",
         "- Documentation: batch COA, HPLC chromatogram, ESI-MS, SDS; third-party testing on request",
         "",
@@ -501,7 +500,7 @@ def build_llms():
             specs = "; ".join(v["label"] for v in p["variants"])
             cas_disp = ("CAS " + p["cas"]) if not p["cas"].startswith("Not ") else "CAS not publicly assigned"
             lines.append(
-                f"- [{p['name']}]({p['url']}): {cas_disp}; {specs}; {p['purity']}; MOQ {p['moq']}. {p['tagline']}"
+                f"- [{p['name']}]({p['url']}): {cas_disp}; {specs}; from {money(p['price_min'])} per {p['unit']}; {p['purity']}; MOQ {p['moq']}. {p['tagline']}"
             )
     lines += [
         "",
@@ -540,7 +539,8 @@ def build_llms():
             f"Form: {p['form']}",
             f"Appearance: {p['appearance']}",
             f"Storage: {p['storage']}; {p['shelf']}",
-            f"Pack sizes: {'; '.join(v['label'] for v in p['variants'])}",
+            f"Pack sizes and prices (USD): {'; '.join(v['label'] + ' = ' + money(v['price']) for v in p['variants'])}",
+            f"Price from: {money(p['price_min'])} per {p['unit']}",
             f"MOQ: {p['moq']}",
             f"Summary: {p['tagline']}",
             "",

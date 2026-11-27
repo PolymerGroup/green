@@ -48,6 +48,14 @@ for path in pages:
         product_count += 1
         if "wa.me/8615866781826" not in raw:
             errors.append(f"{r}: no WhatsApp link")
+        if 'class="buy-bar"' not in raw or 'id="add-to-cart"' not in raw:
+            errors.append(f"{r}: buy bar missing")
+        if "data-price=" not in raw or "id=\"unit-price\"" not in raw:
+            errors.append(f"{r}: price display missing")
+        if "Quick inquiry" in raw or 'class="inquiry-card"' in raw:
+            errors.append(f"{r}: old inquiry panel still present")
+        if "wa-float" in raw:
+            errors.append(f"{r}: floating WhatsApp still present")
         if "Shandong Green International Trade Co., Ltd." not in raw:
             errors.append(f"{r}: supplier missing")
         if "Key Technical &amp; Supplier Summary" not in raw and "Key Technical & Supplier Summary" not in raw:
@@ -57,6 +65,10 @@ for path in pages:
         prod = [g for g in graph if g.get("@type") == "Product"][0]
         if prod["image"][0] != SITE + "/assets/img/og/" + r.split("/")[-1].replace(".html", ".png"):
             errors.append(f"{r}: schema image mismatch")
+        if prod.get("offers", {}).get("@type") != "AggregateOffer":
+            errors.append(f"{r}: offer is not AggregateOffer")
+        if not prod.get("offers", {}).get("lowPrice") or not prod.get("offers", {}).get("priceCurrency"):
+            errors.append(f"{r}: price schema missing")
         if len(prod.get("additionalProperty", [])) < 8:
             errors.append(f"{r}: few product properties")
         if len([g for g in graph if g.get("@type") == "FAQPage"][0]["mainEntity"]) < 6:
@@ -119,6 +131,24 @@ for path in pages:
         errors.append(f"{r}: disclaimer")
     if "info@vivalr.com" not in raw:
         errors.append(f"{r}: email")
+    if "cart-toggle" not in raw or "cart-drawer" not in raw:
+        errors.append(f"{r}: cart shell missing")
+    if "wa-float" in raw:
+        errors.append(f"{r}: floating WhatsApp present")
+
+# content-specific checks
+contact = (PUB / "contact.html").read_text(encoding="utf-8")
+if "Send the products, pack size and destination." not in contact:
+    errors.append("contact: requested copy missing")
+if "breadcrumb" in contact:
+    errors.append("contact: breadcrumb still present")
+about = (PUB / "about.html").read_text(encoding="utf-8")
+if "A Shandong-based supplier built for research buyers." not in about:
+    errors.append("about: H1 not updated")
+if "contract manufacturer" not in about:
+    errors.append("about: contract manufacturer copy missing")
+if "not a contract manufacturer" in about:
+    errors.append("about: old negative copy present")
 
 # JSON-LD parse all
 for path in pages:

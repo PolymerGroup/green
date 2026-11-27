@@ -4,14 +4,13 @@ import json
 import os
 import re
 from pathlib import Path
-from urllib.parse import quote
 
 from data import (
     SITE, BRAND, COMPANY, ADDRESS, ADDRESS_SHORT, PHONE, PHONE_TEL, WHATSAPP,
     EMAIL, UPDATED, UPDATED_HUMAN, CATEGORIES, PRODUCTS, BY_SLUG, DEFAULT_MOQ,
 )
 from ui import (
-    e, jsonld, icon, logo_svg, brand, head, header, footer, breadcrumb,
+    e, money, jsonld, icon, logo_svg, brand, head, header, footer, breadcrumb,
     faq_block, cta_band, product_card, generic_faqs, all_faqs, summary_card,
     product_visual_label, cite_box, disclaimer, vial_svg, molecule_svg, mini_vial,
     WA_TEXT,
@@ -50,20 +49,6 @@ def product_title(p):
 
 def short_spec(p):
     return p["variants"][0]["label"].split(" ×")[0]
-
-
-def quote_text(p, variant, qty, unit="kit"):
-    plural = "packs" if unit == "pack" else "kits"
-    lines = [
-        "Hello Vivalr, I would like a quotation for:",
-        "Product: " + p["full_name"],
-        "Specification: " + variant["label"],
-        "Quantity: %d %s" % (qty, unit if qty == 1 else plural),
-        "SKU: " + variant["sku"],
-        "",
-        "Please include bulk pricing, COA, lead time and shipping options to my country.",
-    ]
-    return "\n".join(lines)
 
 
 def faq_schema(faqs, fid):
@@ -172,7 +157,7 @@ HOME_FAQS = [
     ("Are Vivalr products intended for human use?",
      "No. Every product is supplied strictly for laboratory research and formulation evaluation, and is not for human or veterinary use. We do not provide dosage guidance, medical advice or retail-ready finished products."),
     ("Are you a manufacturer or a trading company?",
-     "Vivalr is the research-peptide brand of Shandong Green International Trade Co., Ltd., a Jinan-based export company. We work with a qualified network of synthesis and fill-finish partners and take responsibility for the specification, batch documentation and export process."),
+     "Vivalr is the research-peptide brand of Shandong Green International Trade Co., Ltd. We are not just an export-focused trading company — we are also a contract manufacturer, managing synthesis, purification, fill-finish and batch documentation through a qualified production network based in Shandong, China."),
     ("Can I review a COA or request a sample before ordering?",
      "Yes. Send the molecule, pack size and intended application and we will share the current batch COA, MS spectrum and SDS. Paid samples are available for most catalogue items; sample freight is quoted separately."),
     ("What is the minimum order quantity?",
@@ -208,7 +193,7 @@ def build_home():
         <span class="pill">Jinan, China · worldwide</span>
       </div>
       <h1 class="hero-title">Research peptides and NAD<sup>+</sup>, <span class="accent">documented batch by batch.</span></h1>
-      <p class="hero-sub">Vivalr supplies ≥99% HPLC-purified cosmetic, repair and longevity peptides to laboratories, formulators and ingredient buyers. COA and MS data with every batch. Quote-only B2B pricing, low minimums, English-language support.</p>
+      <p class="hero-sub">Vivalr supplies ≥99% HPLC-purified cosmetic, repair and longevity peptides to laboratories, formulators and ingredient buyers. COA and MS data with every batch. Transparent USD pricing, low minimums, English-language support.</p>
       <div class="hero-actions">
         <a class="btn btn-primary btn-lg" href="/products/">Browse the catalogue {icon("arrow", "arrow")}</a>
         <a class="btn btn-ghost btn-lg" href="/contact#rfq">Request a quote</a>
@@ -456,27 +441,24 @@ def faq_details(faqs):
 def build_product(p):
     faqs = all_faqs(p)
     v0 = p["variants"][0]
-    unit = "pack" if p["slug"] == "nmn" else "kit"
-    unit_plural = "packs" if unit == "pack" else "kits"
-    quote0 = quote_text(p, v0, 1, unit)
-    wa0 = WHATSAPP + "?text=" + quote(quote0)
-    mail0 = ("mailto:" + EMAIL + "?subject=" + quote("Quote request — " + p["name"] + " — " + v0["label"]) +
-             "&body=" + quote(quote0))
+    unit = p["unit"]
+    unit_plural = p["unit_plural"]
 
     options = ""
     for i, v in enumerate(p["variants"]):
         short = v["label"].split(" ×")[0]
         if p["cat"] == "blend":
             short = v["label"].split(" mg")[0] + " mg blend"
-        options += ('<option value="%s" data-label="%s" data-sku="%s" data-short="%s"%s>%s — %s</option>'
+        options += ('<option value="%s" data-label="%s" data-sku="%s" data-short="%s" data-price="%.2f" data-price-label="%s"%s>%s — %s</option>'
                     % (e(v["sku"]), e(v["label"]), e(v["sku"]), e(short),
+                       v["price"], e(money(v["price"])),
                        " selected" if i == 0 else "", e(v["label"]), e(v["sku"])))
 
     spec_rows = "".join(
-        '<tr><td><strong>%s</strong></td><td class="mono">%s</td><td>%s</td><td>%s</td><td>Quote</td></tr>'
+        '<tr><td><strong>%s</strong></td><td class="mono">%s</td><td>%s</td><td>%s</td><td><strong>%s</strong></td></tr>'
         % (e(v["label"]), e(v["sku"]),
            "10 vials / kit" if "× 10 vials" in v["label"] else "Bulk container",
-           e(p["moq"]))
+           e(p["moq"]), money(v["price"]))
         for v in p["variants"]
     )
 
@@ -500,15 +482,57 @@ def build_product(p):
 
     glance = (f'{p["name"]} is supplied by Vivalr ({COMPANY}) as a {p["purity"]} {p["form"].lower()} '
               f'in {p["spec_summary"]} packs, CAS {p["cas"]}. Each batch ships with a certificate of analysis '
-              f'and MS identity data. MOQ: {p["moq"]}; worldwide express shipping from Jinan, China.')
+              f'and MS identity data. Listed from {money(p["price_from"])} per {p["unit"]}; MOQ {p["moq"]}; '
+              f'worldwide express shipping from Jinan, China.')
 
     if p["cat"] == "blend":
         glance = (f'{p["name"]} is a fixed-ratio research blend supplied by Vivalr ({COMPANY}): '
                   f'{p["seq"]}. It is prepared from independently synthesized and purified components and '
-                  f'ships with a component-level COA and MS data. MOQ: {p["moq"]}.')
+                  f'ships with a component-level COA and MS data. Listed from {money(p["price_from"])} per '
+                  f'{p["unit"]}; MOQ {p["moq"]}.')
 
     synthetic = p["cat"] != "nad" and p["slug"] not in ("glutathione", "thymalin")
     synthesis_label = "SPPS route & purification" if synthetic else "Production route & purification"
+
+    buy_bar = f'''<section class="buy-section" id="buy">
+  <div class="wrap">
+    <div class="buy-bar" data-buy-root data-product-name="{e(p["full_name"])}" data-product-short="{e(p["name"])}" data-product-slug="{p["slug"]}" data-unit="{unit}">
+      <div class="buy-bar-head">
+        <div>
+          <div class="eyebrow">Order this batch</div>
+          <h2>Choose pack size and quantity</h2>
+        </div>
+        <span class="buy-stock">{icon("check")} In stock · ships in 2–3 business days</span>
+      </div>
+      <div class="buy-bar-grid">
+        <div class="buy-field buy-field-variant">
+          <label for="variant-select">Pack size</label>
+          <select id="variant-select">{options}</select>
+          <div class="buy-sku">SKU <b id="buy-sku">{e(v0["sku"])}</b> · {e(p["purity"])}</div>
+        </div>
+        <div class="buy-field buy-field-qty">
+          <label for="buy-qty">Quantity</label>
+          <div class="qty">
+            <button type="button" id="buy-qty-minus" aria-label="Decrease quantity">−</button>
+            <input id="buy-qty" type="number" min="1" max="999" step="1" value="1" inputmode="numeric" aria-label="Quantity">
+            <button type="button" id="buy-qty-plus" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+        <div class="buy-price"><span>Unit price</span><strong id="unit-price">{money(v0["price"])}</strong><small>per {unit}</small></div>
+        <div class="buy-price buy-total"><span>Total</span><strong id="line-total">{money(v0["price"])}</strong><small>USD</small></div>
+        <div class="buy-actions">
+          <button class="btn btn-primary btn-lg" id="add-to-cart" type="button">{icon("cart")} Add to cart</button>
+          <button class="btn btn-ghost" id="open-cart" type="button">View cart <span class="cart-count" id="buy-cart-count">0</span></button>
+        </div>
+      </div>
+      <div class="buy-bar-foot">
+        <span>{icon("shield")} COA + MS + SDS with every batch</span>
+        <span>Prices in USD · shipping and testing quoted at inquiry</span>
+      </div>
+      <div class="buy-status" id="buy-status" role="status" aria-live="polite"></div>
+    </div>
+  </div>
+</section>'''
 
     body = f'''<section class="product-hero">
   <div class="wrap">
@@ -526,23 +550,26 @@ def build_product(p):
           <span class="badge warn">Research use only</span>
         </div>
         <div class="product-actions">
-          <a class="btn btn-primary" href="#quote">Request a quote {icon("arrow", "arrow")}</a>
+          <a class="btn btn-primary" href="#buy">Choose pack &amp; price {icon("arrow", "arrow")}</a>
           <a class="btn btn-ghost" href="#synthesis">Synthesis &amp; stability</a>
         </div>
         <div class="product-meta">
           <div>CAS number<b class="mono">{e(p["cas"])}</b></div>
           <div>Form<b>{e(p["form"])}</b></div>
           <div>MOQ<b>{e(p["moq"])}</b></div>
+          <div>From<b>{money(p["price_from"])} / {unit}</b></div>
         </div>
       </div>
     </div>
-    {summary_card(p)}
   </div>
 </section>
 
+{buy_bar}
+
+<div class="wrap">{summary_card(p)}</div>
+
 <section class="wrap">
-  <div class="product-layout">
-    <div class="product-main">
+  <div class="product-main">
       <div class="at-a-glance"><div class="label">At a glance · quotable summary</div><p>{e(glance)}</p></div>
       <div class="prose">
         <h2 id="overview">Research overview</h2>
@@ -579,11 +606,11 @@ def build_product(p):
         <h2 id="specifications">Specifications &amp; pack sizes</h2>
         <div class="table-wrap">
           <table class="data-table">
-            <thead><tr><th>Pack size</th><th>SKU</th><th>Format</th><th>MOQ</th><th>Price</th></tr></thead>
+            <thead><tr><th>Pack size</th><th>SKU</th><th>Format</th><th>MOQ</th><th>Price (USD)</th></tr></thead>
             <tbody>{spec_rows}</tbody>
           </table>
         </div>
-        <p class="small muted" style="margin-top:10px">Custom fill weights, salt forms, labelling and kit assembly are available from 10 kits. Prices are quote-based and depend on pack size, destination and documentation requirements.</p>
+        <p class="small muted" style="margin-top:10px">Prices are per {unit} in USD and exclude shipping, taxes and optional third-party testing. Custom fill weights, salt forms, labelling and kit assembly are available from 10 kits.</p>
 
         <h2 id="qc">Quality control &amp; documentation</h2>
         <p>Each batch is released against the specification below. The COA reports the actual measured values for the lot, not catalogue targets. Third-party HPLC/MS testing and custom analytical panels can be arranged before shipment.</p>
@@ -623,40 +650,6 @@ def build_product(p):
       {cite_box(p["full_name"] + " — Bulk Research Supplier", p["path"])}
     </div>
 
-    <aside class="product-aside" data-quote-root data-product-name="{e(p["full_name"])}" data-product-short="{e(p["name"])}" data-unit="{unit}">
-      <div class="inquiry-card" id="quote">
-        <div class="inquiry-head">
-          <div class="eyebrow">Quick inquiry</div>
-          <h2>Request a quote</h2>
-          <p>Current COA + MS + bulk pricing</p>
-        </div>
-        <div class="inquiry-body">
-          <div class="field">
-            <label for="variant-select">Pack size</label>
-            <select id="variant-select">{options}</select>
-          </div>
-          <div class="variant-meta"><span>SKU <b id="selected-sku">{e(v0["sku"])}</b></span><span>{e(p["purity"])}</span></div>
-          <div class="field">
-            <label for="qty">Quantity ({unit_plural})</label>
-            <div class="qty">
-              <button type="button" data-step="-1" aria-label="Decrease quantity">−</button>
-              <input id="qty" type="number" min="1" max="999" step="1" value="1" inputmode="numeric" aria-label="Quantity in kits">
-              <button type="button" data-step="1" aria-label="Increase quantity">+</button>
-            </div>
-          </div>
-          <div class="quote-preview" id="quote-preview"><strong>{e(p["name"])}</strong> · {e(v0["label"])}<br>1 {unit} · batch COA &amp; MS included</div>
-          <div class="quote-actions">
-            <a class="btn btn-wa" id="wa-quote" href="{e(wa0)}" target="_blank" rel="noopener">{icon("whatsapp")} Send on WhatsApp</a>
-            <a class="btn btn-dark" id="email-quote" href="{e(mail0)}">{icon("mail")} Email the inquiry</a>
-            <button class="btn btn-ghost" id="copy-quote" type="button">{icon("copy")} Copy inquiry summary</button>
-          </div>
-          <div class="copy-status" id="copy-status" role="status" aria-live="polite"></div>
-          <p class="quote-note">{icon("lock")}<span>Opens WhatsApp or your email app with the product and pack size prefilled. No form data is stored on this site.</span></p>
-        </div>
-        <div class="inquiry-foot"><span>{icon("clock")} Reply within 12 business hours</span><a href="mailto:{EMAIL}">{EMAIL}</a></div>
-      </div>
-    </aside>
-  </div>
 </section>
 
 {cta_band("Need a different pack size or a custom blend?", "We support custom fill weights, salt forms, labelling and kit assembly from 10 kits. Send the specification and destination for a feasibility quote.")}
@@ -690,8 +683,12 @@ def build_product(p):
                 {"@type": "PropertyValue", "name": "Supplier", "value": COMPANY},
             ],
             "offers": {
-                "@type": "Offer",
+                "@type": "AggregateOffer",
                 "url": p["url"],
+                "priceCurrency": "USD",
+                "lowPrice": p["price_min"],
+                "highPrice": p["price_max"],
+                "offerCount": len(p["variants"]),
                 "availability": "https://schema.org/InStock",
                 "seller": {
                     "@type": "Organization",
@@ -702,7 +699,7 @@ def build_product(p):
                 },
                 "areaServed": "Worldwide",
                 "businessFunction": "http://purl.org/goodrelations/v1#Sell",
-                "description": "Bulk pricing is quoted per specification, pack size and destination.",
+                "description": "Listed prices are per kit in USD. Shipping and optional testing are quoted separately.",
             },
             "isRelatedTo": [{"@type": "Product", "name": BY_SLUG[r]["full_name"], "url": BY_SLUG[r]["url"]}
                             for r in p["related"] if r in BY_SLUG],

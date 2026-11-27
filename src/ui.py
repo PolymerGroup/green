@@ -16,6 +16,13 @@ def e(value):
     return html.escape(str(value), quote=True)
 
 
+def money(value):
+    text = f"{float(value):,.2f}"
+    if text.endswith(".00"):
+        text = text[:-3]
+    return "$" + text
+
+
 def jsonld(graph):
     payload = {"@context": "https://schema.org", "@graph": graph}
     raw = json.dumps(payload, ensure_ascii=False, separators=(",", ":"))
@@ -57,6 +64,8 @@ def icon(name, cls=""):
         "users": '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/>',
         "layers": '<path d="m12 2 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 17l9 5 9-5"/>',
         "lock": '<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',
+        "cart": '<circle cx="9" cy="20" r="1.6"/><circle cx="19" cy="20" r="1.6"/><path d="M2 3h3l2.4 11.4a2 2 0 0 0 2 1.6h8.9a2 2 0 0 0 2-1.6L22 7H6"/>',
+        "trash": '<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v5M14 11v5"/>',
     }
     body = paths.get(name, paths["info"])
     return ('<svg class="%s" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" '
@@ -298,6 +307,9 @@ def header(active=""):
         <a class="btn btn-ghost btn-sm" href="/contact">Talk to sales</a>
         <a class="btn btn-primary btn-sm" href="/contact#rfq">Request a quote {icon("arrow", "arrow")}</a>
       </div>
+      <button class="cart-toggle" id="cart-toggle" type="button" aria-haspopup="dialog" aria-controls="cart-drawer" aria-label="Open inquiry cart">
+        {icon("cart")}<span class="cart-toggle-label">Cart</span><span class="cart-count" id="cart-count">0</span>
+      </button>
       <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu">
         {icon("menu")}
       </button>
@@ -320,6 +332,37 @@ def header(active=""):
   <a class="btn btn-wa" href="{WHATSAPP}?text={WA_TEXT}" target="_blank" rel="noopener">{icon("whatsapp")} WhatsApp us</a>
 </nav>
 <main id="main">'''
+
+
+def cart_drawer():
+    return f'''<div class="cart-overlay" id="cart-overlay" aria-hidden="true"></div>
+<aside class="cart-drawer" id="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cart-title" aria-hidden="true">
+  <div class="cart-head">
+    <div>
+      <div class="eyebrow">Inquiry cart</div>
+      <h2 id="cart-title">Your selection</h2>
+      <p id="cart-summary">0 items</p>
+    </div>
+    <button class="cart-close" id="cart-close" type="button" aria-label="Close cart">{icon("close")}</button>
+  </div>
+  <div class="cart-body">
+    <div class="cart-empty" id="cart-empty">
+      <span class="cart-empty-icon">{icon("cart")}</span>
+      <strong>Your cart is empty.</strong>
+      <p>Add a pack size from any product page. The cart will build a complete inquiry for you.</p>
+      <a class="btn btn-primary btn-sm" href="/products/">Browse products {icon("arrow", "arrow")}</a>
+    </div>
+    <div id="cart-items"></div>
+  </div>
+  <div class="cart-foot">
+    <div class="cart-total"><span>Estimated total</span><strong id="cart-total">$0</strong></div>
+    <p class="cart-note">Prices are in USD per kit. Shipping, taxes and any testing are quoted separately. No payment is taken online.</p>
+    <a class="btn btn-wa" id="cart-wa" href="#" target="_blank" rel="noopener">{icon("whatsapp")} Send inquiry on WhatsApp</a>
+    <a class="btn btn-dark" id="cart-email" href="mailto:{EMAIL}">{icon("mail")} Email the inquiry</a>
+    <button class="btn btn-ghost" id="cart-clear" type="button">{icon("trash")} Clear cart</button>
+    <p class="cart-foot-note">The message is written for you — product, pack size, quantity and total are included.</p>
+  </div>
+</aside>'''
 
 
 def footer():
@@ -377,9 +420,7 @@ def footer():
     </div>
   </div>
 </footer>
-<a id="wa-float" class="wa-float" href="{WHATSAPP}?text={WA_TEXT}" target="_blank" rel="noopener" aria-label="Chat with Vivalr on WhatsApp">
-  {icon("whatsapp")}<span class="wa-label">WhatsApp<small>Quote in 12 h</small></span>
-</a>
+{cart_drawer()}
 <script src="/assets/js/main.js" defer></script>
 </body>
 </html>'''
@@ -449,6 +490,7 @@ def product_card(p):
     <h3 class="pcard-title"><a href="{p['path']}">{e(p['name'])}</a></h3>
     <div class="pcard-cas">CAS {e(p['cas'])}</div>
     <div class="spec-chips">{chips}</div>
+    <div class="pcard-price"><span>{'From' if len(p['variants']) > 1 else 'Price'}</span> <strong>{money(p['price_from'])}</strong> <small>/ {p['unit']}</small></div>
     <div class="pcard-foot"><span>MOQ {e(p['moq'])}</span><span>View specs {icon("arrow", "arrow")}</span></div>
   </div>
 </article>'''
@@ -461,9 +503,9 @@ def generic_faqs(p):
          "and ships with a batch-specific COA and SDS. The COA reports appearance, assay, water content and "
          "identity; third-party HPLC/MS testing can be arranged on request." % p["name"]),
         ("What is the MOQ and how does bulk pricing work?" % (),
-         "The minimum order is %s. Pricing is quoted per specification, pack size and destination, with "
-         "step-down pricing at 10+ kits and 100+ kits. We do not publish list prices because freight, "
-         "packaging and documentation requirements vary by order." % p["moq"]),
+         "The minimum order is %s. Listed prices cover standard pack sizes in USD; pricing steps down at "
+         "10+ kits and 100+ kits. The final quotation confirms the pack size, freight and any documentation "
+         "or testing you require." % p["moq"]),
         ("How is %s packaged and shipped?" % p["name"],
          "Material ships in sealed, tamper-evident vials or bulk containers with desiccant and appropriate "
          "temperature control. We use DHL, FedEx or UPS express with tracking, typically 3–7 business days "
