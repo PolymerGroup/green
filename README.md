@@ -13,7 +13,7 @@ Static B2B catalogue for **https://vivalr.com**, built for GitHub + Cloudflare P
 ## Repository layout
 
 ```text
-vivalr/
+green/                        # GitHub repository root
 ├── public/                     # Cloudflare Pages output directory
 │   ├── index.html
 │   ├── products/
